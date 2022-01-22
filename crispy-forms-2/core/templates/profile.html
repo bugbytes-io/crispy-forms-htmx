@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>{{ request.user.username }}</h1>
+
+<p>You are studying {{ request.user.get_subject_display }}</p>
+
+{% csrf_token %}
+<button hx-post="{% url 'logout' %}" hx-push-url='/' hx-target='closest body'>Logout</button>
+
+{% else %}
+
+<h1>You are not allowed</h1>
+
+{% endif %}
+
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+{% endblock %}
