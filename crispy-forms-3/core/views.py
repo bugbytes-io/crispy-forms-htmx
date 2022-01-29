@@ -32,7 +32,7 @@ def check_username(request):
     form = UniversityForm(request.GET)
     context = {
         'field': as_crispy_field(form['username']),
-        'valid': len(form['username'].errors) == 0
+        'valid': not form['username'].errors
     }
     return render(request, 'partials/field.html', context)
 
@@ -40,6 +40,6 @@ def check_subject(request):
     form = UniversityForm(request.GET)
     context = {
         'field': as_crispy_field(form['subject']),
-        'valid': len(form['subject'].errors) == 0
+        'valid': not form['subject'].errors
     }
     return render(request, 'partials/field.html', context)
